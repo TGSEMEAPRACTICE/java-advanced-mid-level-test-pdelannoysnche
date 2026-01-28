@@ -31,10 +31,20 @@ jobs:
         command: javac *.java
         timeout: 2
         max-score: 10
+    - name: Checkstyle
+      id: checkstyle
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Checkstyle
+        setup-command: ''
+        command: "```bash curl -L https://www.google.com/search?q=https://github.com/checkstyle/checkstyle/releases/download/releas_10.12.4/checkstyle-10.12.4-all.jar
+          -o checkstyle.jar && java -jar checkstyle.jar -c /google_checks.xml *.java"
+        timeout: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
         COMPILATION-STYLE_RESULTS: "${{steps.compilation-style.outputs.result}}"
         PRUEBA-DE-COMPILACION_RESULTS: "${{steps.prueba-de-compilacion.outputs.result}}"
+        CHECKSTYLE_RESULTS: "${{steps.checkstyle.outputs.result}}"
       with:
-        runners: compilation-style,prueba-de-compilacion
+        runners: compilation-style,prueba-de-compilacion,checkstyle
