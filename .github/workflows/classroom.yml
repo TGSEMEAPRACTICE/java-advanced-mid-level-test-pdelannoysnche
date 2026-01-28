@@ -19,9 +19,9 @@ jobs:
       with:
         test-name: Compilation & Style
         setup-command: ''
-        command: javac Main.java
-        timeout: 1
-        max-score: 100
+        command: javac *.java
+        timeout: 2
+        max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
